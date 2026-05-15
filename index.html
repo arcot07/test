@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anand Mobiles</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="logo">Anand <span>Mobiles</span></div>
+        
+        <!-- Live Global Search Bar -->
+        <div class="search-container">
+            <input type="text" id="product-search" placeholder="Search brands, versions, accessories..." onkeyup="handleGlobalSearch()">
+        </div>
+        
+        <nav>
+            <a href="#smartphones">Mobiles</a>
+            <a href="#keypad-mobiles">Keypad</a>
+            <a href="#refurbished-mobiles">Refurbished</a>
+            <a href="#accessories">Accessories</a>
+            <button class="cart-toggle-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+        </nav>
+    </header>
+
+    <!-- Promo Slider -->
+    <section id="home" class="hero-slider-container">
+        <div class="slide active" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), url('https://unsplash.com');">
+            <div class="hero-content">
+                <span class="promo-badge">Mega Deals</span>
+                <h1>Flagships & Accessories</h1>
+                <p>Explore the largest collection with WhatsApp express checkout.</p>
+                <a href="#smartphones" class="btn">View Catalog</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), url('https://unsplash.com');">
+            <div class="hero-content">
+                <span class="promo-badge">Premium Audio</span>
+                <h1>Sound & Power Gear</h1>
+                <p>Wireless earbuds, audio kits, and chargers under one roof.</p>
+                <a href="#accessories" class="btn">Shop Accessories</a>
+            </div>
+        </div>
+        <button class="slider-arrow prev-arrow" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow next-arrow" onclick="moveSlide(1)">❯</button>
+        <div class="slider-dots">
+            <span class="dot active" onclick="setSlide(0)"></span>
+            <span class="dot" onclick="setSlide(1)"></span>
+        </div>
+    </section>
+
+    <!-- Full-Width Background Section Containers -->
+    <div class="section-wrapper bg-white">
+        <section id="smartphones" class="products-section">
+            <!-- Bolded and Highlighted Section Heading -->
+            <h2 class="highlighted-heading">Latest Smartphones</h2>
+            <div id="smartphones-grid" class="product-grid"></div>
+        </section>
+    </div>
+
+    <div class="section-wrapper bg-alt">
+        <section id="keypad-mobiles" class="products-section">
+            <!-- Bolded and Highlighted Section Heading -->
+            <h2 class="highlighted-heading">Keypad Mobiles</h2>
+            <div id="keypad-grid" class="product-grid"></div>
+        </section>
+    </div>
+
+    <div class="section-wrapper bg-white">
+        <section id="refurbished-mobiles" class="products-section">
+            <!-- Bolded and Highlighted Section Heading -->
+            <h2 class="highlighted-heading">Refurbished Mobiles</h2>
+            <div id="refurbished-grid" class="product-grid"></div>
+        </section>
+    </div>
+
+    <div class="section-wrapper bg-alt">
+        <section id="accessories" class="products-section">
+            <!-- Bolded and Highlighted Section Heading -->
+            <h2 class="highlighted-heading">Premium Accessories</h2>
+            
+            <div class="accessory-filter-wrapper">
+                <div class="main-cat-tabs">
+                    <button class="cat-tab active" onclick="switchAccessoryCategory('Audio Devices')">Audio Devices</button>
+                    <button class="cat-tab" onclick="switchAccessoryCategory('Chargers')">Chargers</button>
+                    <button class="cat-tab" onclick="switchAccessoryCategory('Mobile cases')">Mobile Cases</button>
+                    <button class="cat-tab" onclick="switchAccessoryCategory('Others')">Others</button>
+                </div>
+                
+                <div id="sub-cat-tabs" class="sub-cat-tabs"></div>
+            </div>
+
+            <div id="accessories-grid" class="product-grid animated-fade"></div>
+        </section>
+    </div>
+
+    <!-- Shopping Cart Drawer Layout -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-cart-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cart-items" class="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-amount">₹0</span>
+            </div>
+            <button class="whatsapp-checkout-btn" onclick="checkoutWhatsApp()">💬 Order via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Store Contact Info -->
+    <section class="contact-section">
+        <h4>Visit Our Store</h4>
+        <div class="contact-info">
+		    <p><i><h2>Anand Mobiles</h2></i></p>
+            <p>📍 Near Old Busstand, Venkatagiri Town</p>
+            <p>📞 +91 90108 02092</p>
+            <p>⏰ Open Daily: 09:00 AM - 9:00 PM</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Anand Mobiles. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
