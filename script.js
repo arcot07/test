@@ -1,265 +1,541 @@
-// Complete Programmatic Inventory Dataset Pipeline Configuration
-const INVENTORY = [
-    // 1. Latest Smartphones Category Block
-    ...["iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 14"].map(v => ({ id:`ls-ip-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Iphone", name:v, price:79999, img:"📱" })),
-    ...["Galaxy S24 Ultra", "Galaxy S24+", "Galaxy S23 Ultra", "Galaxy A55"].map(v => ({ id:`ls-sam-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Samsung", name:v, price:84999, img:"📱" })),
-    ...["Pixel 8 Pro", "Pixel 8", "Pixel 7a", "Pixel 6a"].map(v => ({ id:`ls-pix-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Google Pixel", name:v, price:69999, img:"📱" })),
-    ...["Vivo X100 Pro", "Vivo V30 Pro", "Vivo Y200e", "Vivo T2x"].map(v => ({ id:`ls-viv-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Vivo", name:v, price:32999, img:"📱" })),
-    ...["Oppo Reno 11 Pro", "Oppo F25 Pro", "Oppo A78", "Oppo K11"].map(v => ({ id:`ls-opp-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Oppo", name:v, price:29999, img:"📱" })),
-    ...["Redmi Note 13 Pro+", "Redmi 13C", "Redmi 12 5G", "Redmi A3"].map(v => ({ id:`ls-red-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Redmi", name:v, price:16999, img:"📱" })),
-    ...["Realme GT 5G", "Realme 12 Pro+", "Realme Narzo 70", "Realme C65"].map(v => ({ id:`ls-rea-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Realme", name:v, price:19999, img:"📱" })),
-    ...["Poco X6 Pro", "Poco F5 5G", "Poco M6 Pro", "Poco C65"].map(v => ({ id:`ls-poc-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Poco", name:v, price:15999, img:"📱" })),
-    ...["Nothing Phone (2)", "Nothing Phone (2a)", "Nothing Phone (1)"].map(v => ({ id:`ls-not-${v.replace(/\s+/g, '')}`, cat:"smartphones", brand:"Nothing", name:v, price:34999, img:"📱" })),
+/* ==========================================
+   1. GLOBAL RESETS & MODERN VARIABLES
+   ========================================== */
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    /* Premium High-Contrast Header Background Slate */
+    --header-bg: #0b1329; 
+    --dark-bg: #090d16;
+    --light-bg: #f8fafc; 
+    --alt-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --price-strike: #94a3b8;
+    --price-sale: #dc2626;
+    --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -3px rgba(0, 0, 0, 0.02);
+    --glass-blur: 20px;
+}
 
-    // 2. Keypad Mobiles Category Block
-    ...["Guru Music 2", "Metro XL", "Guru Plus B110"].map(v => ({ id:`kp-sam-${v.replace(/\s+/g, '')}`, cat:"keypad-mobiles", brand:"Samsung", name:v, price:1999, img:"📟" })),
-    ...["Nokia 105 SS", "Nokia 110 4G", "Nokia 225 4G", "Nokia 5310"].map(v => ({ id:`kp-nok-${v.replace(/\s+/g, '')}`, cat:"keypad-mobiles", brand:"Nokia", name:v, price:2499, img:"📟" })),
-    ...["Lava A1 Flex", "Lava Flip", "Lava Gem Premium", "Lava Pulse"].map(v => ({ id:`kp-lav-${v.replace(/\s+/g, '')}`, cat:"keypad-mobiles", brand:"Lava", name:v, price:1299, img:"📟" })),
-    ...["Karbonn K9 Jumbo", "Karbonn KX3", "Karbonn K77", "Karbonn K14"].map(v => ({ id:`kp-kar-${v.replace(/\s+/g, '')}`, cat:"keypad-mobiles", brand:"Karbonn", name:v, price:1099, img:"📟" })),
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    // 3. Refurbished Mobiles Category Block
-    ...["iPhone 13 Pro", "iPhone 12 Mini", "iPhone 11 Pro", "iPhone SE 2020"].map(v => ({ id:`rf-ip-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Iphone", name:`${v} (Refurbished)`, price:39999, img:"📱" })),
-    ...["Galaxy S22 Ultra", "Galaxy S21 FE", "Galaxy Note 20 Ultra", "Galaxy A73"].map(v => ({ id:`rf-sam-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Samsung", name:`${v} (Refurbished)`, price:34999, img:"📱" })),
-    ...["Pixel 7 Pro", "Pixel 6 Pro", "Pixel 6a XL", "Pixel 5"].map(v => ({ id:`rf-pix-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Google Pixel", name:`${v} (Refurbished)`, price:24999, img:"📱" })),
-    ...["Vivo V27 Pro", "Vivo X90", "Vivo V25", "Vivo Y100"].map(v => ({ id:`rf-viv-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Vivo", name:`${v} (Refurbished)`, price:18500, img:"📱" })),
-    ...["Oppo Reno 10 Pro", "Oppo F21 Pro", "Oppo A96", "Oppo K10"].map(v => ({ id:`rf-opp-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Oppo", name:`${v} (Refurbished)`, price:16999, img:"📱" })),
-    ...["Redmi Note 12 Pro", "Redmi K50i", "Redmi 11 Prime", "Redmi Note 11"].map(v => ({ id:`rf-red-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Redmi", name:`${v} (Refurbished)`, price:11499, img:"📱" })),
-    ...["Realme 11 Pro+", "Realme 10 Pro", "Realme GT Master", "Realme 9i"].map(v => ({ id:`rf-rea-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Realme", name:`${v} (Refurbished)`, price:12999, img:"📱" })),
-    ...["Poco F4 5G", "Poco X5 Pro", "Poco M4 Pro", "Poco C55"].map(v => ({ id:`rf-poc-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Poco", name:`${v} (Refurbished)`, price:10499, img:"📱" })),
-    ...["Nothing Phone (1) Black", "Nothing Phone (1) White"].map(v => ({ id:`rf-not-${v.replace(/\s+/g, '')}`, cat:"refurbished-mobiles", brand:"Nothing", name:`${v} (Refurbished)`, price:21999, img:"📱" })),
+html {
+    scroll-behavior: smooth;
+}
 
-    // 4. Premium Accessories System Block
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-we-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wired Earphones", name:`Wired Earphone ${v}`, price:399 + (idx * 50), img:"🎧" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-wle-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wireless Earphones", name:`Wireless Earphone ${v}`, price:999 + (idx * 100), img:"🎧" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-web-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wireless Earbuds", name:`Wireless Earbuds ${v}`, price:1999 + (idx * 200), img:"🎧" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-spk-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Speakers", name:`Bluetooth Speaker ${v}`, price:1499 + (idx * 300), img:"🔊" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-tc-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Type-c", name:`Type-C Charger ${v}`, price:599 + (idx * 100), img:"🔌" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-mu-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Micro usb", name:`Micro USB Charger ${v}`, price:299 + (idx * 50), img:"🔌" })),
-    ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-lt-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Lightening", name:`Lightning Charger ${v}`, price:899 + (idx * 200), img:"🔌" })),
-    ...["Iphone", "Google Pixel", "Vivo", "Oppo", "Redmi", "Realme", "Poco", "Nothing", "Samsung"].flatMap(b => 
-        ["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`case-${b.replace(/\s+/g, '')}-${idx}`, cat:"accessories", mainCat:"Mobile cases", subCat:b, name:`${b} Case ${v}`, price:299 + (idx * 50), img:"🛡️" }))
-    ),
-    { id:"acc-oth-1", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Cable protector", price:99, img:"⚙️" },
-    { id:"acc-oth-2", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Finger pad", price:149, img:"🎮" },
-    { id:"acc-oth-3", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Mobile cleaning kit", price:249, img:"🧽" }
-];
+body {
+    background-color: var(--light-bg);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
 
-// App Core State
-let cart = JSON.parse(localStorage.getItem('phoneHubCart')) || [];
-const WHATSAPP_NUMBER = "919876543210";
-let currentActiveMainAccessory = "Audio Devices";
-let currentActiveSubAccessory = "Wired Earphones";
+/* ==========================================
+   2. HEADER & FIXED NAVIGATION (DARK PREMIUM)
+   ========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--header-bg); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 16px;
+    gap: 12px;
+}
 
-// Slider Mechanics Configuration
-let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-let sliderInterval = setInterval(() => moveSlide(1), 5000);
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderAllGrids();
-    switchAccessoryCategory('Audio Devices');
-    updateCartUI();
-});
-
-// UI Grid Generator Engine
-function renderAllGrids(filterQuery = "") {
-    const q = filterQuery.toLowerCase();
-
-    const buildCardHtml = (item) => `
-        <div class="product-card">
-            <div>
-                <div class="product-image">${item.img}</div>
-                <div class="brand-tag">${item.brand || item.subCat}</div>
-                <h3>${item.name}</h3>
-            </div>
-            <div>
-                <p class="price">₹${item.price.toLocaleString('en-IN')}</p>
-                <button class="buy-btn" onclick="addToCart('${item.id}')">Add to Cart</button>
-            </div>
-        </div>
-    `;
-
-    const matchesSearch = (item) => 
-        item.name.toLowerCase().includes(q) || 
-        (item.brand && item.brand.toLowerCase().includes(q)) ||
-        (item.subCat && item.subCat.toLowerCase().includes(q));
-
-    // TARGET ALIGNMENT CORRECTION MATRIX
-    const categoriesMapping = [
-        { dataCat: "smartphones", elementId: "smartphones-grid" },
-        { dataCat: "keypad-mobiles", elementId: "keypad-grid" },       // Corrected from keypad-mobiles-grid
-        { dataCat: "refurbished-mobiles", elementId: "refurbished-grid" } // Corrected from refurbished-mobiles-grid
-    ];
-
-    categoriesMapping.forEach(mapping => {
-        const grid = document.getElementById(mapping.elementId);
-        if (!grid) return;
-        const items = INVENTORY.filter(item => item.cat === mapping.dataCat && matchesSearch(item));
-        grid.innerHTML = items.map(buildCardHtml).join('');
-    });
-
-    // Render Tabbed Accessory Catalog Section
-    const accGrid = document.getElementById('accessories-grid');
-    if (accGrid) {
-        const accItems = INVENTORY.filter(item => 
-            item.cat === "accessories" && 
-            item.mainCat === currentActiveMainAccessory && 
-            (currentActiveMainAccessory === "Others" || item.subCat.toLowerCase() === currentActiveSubAccessory.toLowerCase()) &&
-            matchesSearch(item)
-        );
-        accGrid.innerHTML = accItems.map(buildCardHtml).join('');
+@media(min-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 16px 40px;
+        gap: 24px;
     }
 }
 
-function handleGlobalSearch() {
-    const query = document.getElementById('product-search').value;
-    renderAllGrids(query);
+/* Explicit rule overriding global link styles for your main logo */
+.logo, a.logo, .navbar a.logo {
+    text-decoration: none !important;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -1px;
+    display: inline-block;
+    cursor: pointer;
 }
 
-// Accessory Context Tab Switcher
-function switchAccessoryCategory(mainCat) {
-    currentActiveMainAccessory = mainCat;
-    
-    const subs = [...new Set(INVENTORY.filter(i => i.mainCat === mainCat).map(i => i.subCat))];
-    currentActiveSubAccessory = subs[0] || "";
+.logo span {
+    color: var(--primary);
+}
 
-    document.querySelectorAll('.main-cat-tabs .cat-tab').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.trim().toLowerCase() === mainCat.toLowerCase());
-    });
+.search-container {
+    width: 100%;
+    max-width: 450px;
+}
 
-    const subContainer = document.getElementById('sub-cat-tabs');
-    if (!subContainer) return;
-    
-    if (mainCat === "Others" || subs.length <= 1) {
-        subContainer.innerHTML = "";
-    } else {
-        subContainer.innerHTML = subs.map(sub => `
-            <button class="sub-tab ${sub === currentActiveSubAccessory ? 'active' : ''}" 
-                    onclick="switchAccessorySubCategory('${sub}')">${sub}</button>
-        `).join('');
+.search-container input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-container input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    color: var(--text-main);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+}
+
+nav::-webkit-scrollbar { display: none; }
+
+@media(min-width: 768px) {
+    nav {
+        width: auto;
+        gap: 24px;
+        padding-bottom: 0;
     }
-    renderAllGrids();
 }
 
-function switchAccessorySubCategory(subCat) {
-    currentActiveSubAccessory = subCat;
-    document.querySelectorAll('#sub-cat-tabs .sub-tab').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.trim().toLowerCase() === subCat.toLowerCase());
-    });
-    renderAllGrids();
+nav a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s;
 }
 
-// Cart Management Mechanics
-function toggleCart() {
-    document.getElementById('cart-drawer').classList.toggle('open');
+nav a:hover {
+    color: #ffffff;
 }
 
-function addToCart(id) {
-    const item = INVENTORY.find(i => i.id === id);
-    if (!item) return;
+.cart-toggle-btn {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-    const existing = cart.find(c => c.id === id);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ id: item.id, name: item.name, price: item.price, quantity: 1 });
+.cart-toggle-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* ==========================================
+   3. AUTOMATED HERO SLIDER POSTERS
+   ========================================== */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    height: 240px;      /* Decreased from 340px for a sleeker profile */
+    margin-top: 135px;  /* Reduced top offset to eliminate awkward blank space */
+    overflow: hidden;
+}
+
+@media(min-width: 768px) {
+    .hero-slider-container {
+        height: 340px;  /* Decreased from 460px for a crisp, wide banner look */
+        margin-top: 76px;/* Tightened desktop top gap clearance spacing */
     }
-    
-    syncAndRender();
-    document.getElementById('cart-drawer').classList.add('open');
 }
 
-function updateQuantity(id, change) {
-    const targetItem = cart.find(c => c.id === id);
-    if (!targetItem) return;
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;       /* Hard stretches the photo perfectly to frame edges */
+    background-position: center;   /* Keeps the focus of the photo in the absolute middle */
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    targetItem.quantity += change;
+.slide.active { opacity: 1; z-index: 1; }
+.hero-content { text-align: center; color: #ffffff; max-width: 650px; padding: 20px; }
 
-    if (targetItem.quantity <= 0) {
-        cart = cart.filter(c => c.id !== id);
+.promo-badge {
+    background: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-block;
+}
+
+.hero-content h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+@media(min-width: 768px) { .hero-content h1 { font-size: 3.5rem; } }
+
+.slider-arrow, .btn { display: none !important; }
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #ffffff;
+    width: 20px;
+    border-radius: 3px;
+}
+
+/* ==========================================
+   4. LAYOUT SECTIONS & NEW CATEGORIES STYLE
+   ========================================== */
+.section-wrapper { padding: 50px 16px; }
+.bg-white { background-color: var(--light-bg); }
+.bg-alt { background-color: var(--alt-bg); }
+
+.products-section {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.highlighted-heading {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--dark-bg);
+    margin-bottom: 28px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.accessory-filter-wrapper {
+    margin-bottom: 35px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-cat-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 8px 6px;
+    width: 100%;
+    scrollbar-width: none;
+}
+.main-cat-tabs::-webkit-scrollbar { display: none; }
+
+@media(min-width: 1024px) { .main-cat-tabs { justify-content: center; } }
+
+.cat-tab {
+    background: #ffffff;
+    color: var(--text-main);
+    border: 2px solid #e2e8f0;
+    padding: 12px 24px; 
+    border-radius: 40px;
+    font-size: 1.05rem; 
+    font-weight: 750;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cat-tab:hover {
+    border-color: var(--primary);
+    background: #fafafa;
+}
+
+.cat-tab.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+    transform: translateY(-1px);
+}
+
+.sub-cat-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-top: 18px;
+    padding: 2px;
+    scrollbar-width: none;
+    justify-content: center;
+    width: 100%;
+}
+
+.sub-tab {
+    background: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sub-tab.active {
+    background: var(--dark-bg);
+    color: #ffffff;
+}
+
+/* ==========================================
+   5. PRODUCT GRID & NEW DUAL PRICING LAYOUT
+   ========================================== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+@media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+
+.product-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+}
+
+.product-card:hover { transform: translateY(-4px); }
+
+.product-icon-frame {
+    font-size: 2.4rem;
+    height: 70px;
+    width: 70px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.product-brand { font-size: 0.65rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.product-title { font-size: 0.95rem; font-weight: 600; height: 2.8em; overflow: hidden; margin-bottom: 10px; text-align: center; }
+
+.product-price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.price-original {
+    font-size: 0.85rem;
+    color: var(--price-strike);
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.price-discounted {
+    font-size: 1.15rem;
+    color: var(--price-sale);
+    font-weight: 800;
+}
+
+.add-to-cart-btn {
+    width: auto;
+    min-width: 130px;
+    background: #f1f5f9;
+    color: var(--text-main);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.add-to-cart-btn:hover { background: var(--dark-bg); color: #ffffff; }
+
+/* ==========================================
+   6. CARTS DRAWER LAYOUT
+   ========================================== */
+.cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s ease; display: flex; flex-direction: column; }
+.cart-drawer.open { right: 0; }
+.cart-header { padding: 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+.cart-items-container { flex: 1; overflow-y: auto; padding: 20px; }
+.cart-item-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; }
+.cart-qty-controls { display: flex; align-items: center; background: #f1f5f9; border-radius: 8px; padding: 2px; }
+.cart-qty-controls button { background: none; border: none; width: 28px; height: 28px; cursor: pointer; font-weight: 600; }
+.cart-qty-controls span { font-size: 0.85rem; font-weight: 600; min-width: 24px; text-align: center; }
+.cart-footer { padding: 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; }
+.cart-total-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; }
+.whatsapp-checkout-btn { width: 100%; background: #25d366; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; text-align: center; }
+
+/* ==========================================
+   7. OPTIMISED VISIT OUR STORE SIZES
+   ========================================== */
+
+.contact-section {
+    background: var(--header-bg);
+    color: #ffffff;
+    padding: 40px 16px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+@media(min-width: 768px) {
+    .contact-section {
+        padding: 55px 40px;
     }
-
-    syncAndRender();
 }
 
-function removeFromCart(id) {
-    cart = cart.filter(c => c.id !== id);
-    syncAndRender();
+.contact-grid-container {
+    max-width: 800px; /* Constrained width looks best for centered standalone text */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-function syncAndRender() {
-    localStorage.setItem('phoneHubCart', JSON.stringify(cart));
-    updateCartUI();
+.contact-text-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+    text-align: center;     
 }
 
-function updateCartUI() {
-    const container = document.getElementById('cart-items');
-    const countSpan = document.getElementById('cart-count');
-    const totalSpan = document.getElementById('cart-total-amount');
-    
-    if (!container) return;
-    container.innerHTML = '';
-    let totalCount = 0;
-    let totalPrice = 0;
-    
-    cart.forEach(c => {
-        totalCount += c.quantity;
-        totalPrice += (c.price * c.quantity);
-        
-        const row = document.createElement('div');
-        row.className = 'cart-item';
-        row.innerHTML = `
-            <div class="cart-item-details-wrapper">
-                <h4>${c.name}</h4>
-                <p style="color:var(--accent)">₹${(c.price * c.quantity).toLocaleString('en-IN')}</p>
-                
-                <div class="qty-stepper-container">
-                    <button class="qty-step-btn" onclick="updateQuantity('${c.id}', -1)">−</button>
-                    <span class="qty-display">${c.quantity}</span>
-                    <button class="qty-step-btn" onclick="updateQuantity('${c.id}', 1)">+</button>
-                </div>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart('${c.id}')">Remove</button>
-        `;
-        container.appendChild(row);
-    });
-    
-    if (countSpan) countSpan.innerText = totalCount;
-    if (totalSpan) totalSpan.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+.contact-text-block h4 {
+    font-size: 0.9rem; 
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
 }
 
-// WhatsApp Dispatch Flow
-function checkoutWhatsApp() {
-    if (cart.length === 0) return alert("Your shopping cart is empty.");
-    
-    let text = `Hello Anand Mobiles! I'd like to purchase these products:\n\n`;
-    let grandTotal = 0;
-    
-    cart.forEach((c, i) => {
-        const rowTotal = c.price * c.quantity;
-        grandTotal += rowTotal;
-        text += `${i+1}. *${c.name}* [x${c.quantity}] - ₹${rowTotal.toLocaleString('en-IN')}\n`;
-    });
-    
-    text += `\n*Grand Total: ₹${grandTotal.toLocaleString('en-IN')}*\n\nPlease confirm availability.`;
-    window.open(`https://wa.me/919010802092?text=${encodeURIComponent(text)}`, '_blank');
+.contact-info h2 {
+    font-size: 1.7rem; 
+    color: #ffffff;
+    margin-bottom: 16px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
-// Banner Slide Controllers
-function moveSlide(dir) {
-    if (slides.length === 0) return;
-    clearInterval(sliderInterval);
-    slides[currentSlideIndex].classList.remove('active');
-    if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.remove('active');
-    
-    currentSlideIndex = (currentSlideIndex + dir + slides.length) % slides.length;
-    
-    slides[currentSlideIndex].classList.add('active');
-    if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.add('active');
-    sliderInterval = setInterval(() => moveSlide(1), 5000);
+.contact-info p {
+    opacity: 0.8;
+    margin-bottom: 10px;
+    font-size: 0.92rem; 
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 8px;
 }
 
-function setSlide(idx) {
-    moveSlide(idx - currentSlideIndex);
+.social-links-wrapper {
+    display: flex;
+    gap: 14px;
+    margin-top: 20px;
+    justify-content: center; 
+    width: 100%;
 }
+
+.social-icon {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: #ffffff;
+}
+
+.social-icon.wa:hover { background: #25d366; }
+.social-icon.ig:hover { background: #e1306c; }
+.social-icon.yt:hover { background: #ff0000; }
+
+.contact-map-frame {
+    flex: 1;
+    width: 100%;
+    height: 200px; 
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media(min-width: 768px) {
+    .contact-map-frame {
+        height: 280px; 
+    }
+}
+
+footer { background: #060a13; color: rgba(255,255,255,0.3); text-align: center; padding: 24px; font-size: 0.8rem; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animated-fade { animation: fadeInUp 0.3s ease; }
