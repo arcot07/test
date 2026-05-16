@@ -10,7 +10,8 @@
 
     <!-- Navigation Header -->
     <header class="navbar">
-        <div class="logo">Anand <span>Mobiles</span></div>
+        <!-- Logo redirects back to top of the viewport on click -->
+        <a href="#home" class="logo">Anand <span>Mobiles</span></a>
         
         <!-- Live Global Search Bar -->
         <div class="search-container">
@@ -26,26 +27,27 @@
         </nav>
     </header>
 
-    <!-- Promo Slider -->
+    <!-- Promo Slider Banners -->
     <section id="home" class="hero-slider-container">
-        <div class="slide active" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), url('https://unsplash.com');">
+        <!-- Banner Page 1 -->
+        <div class="slide active" style="background-image: linear-gradient(rgba(15, 23, 42, 0.60), rgba(15, 23, 42, 0.60)), url('https://unsplash.com');">
             <div class="hero-content">
                 <span class="promo-badge">Mega Deals</span>
                 <h1>Flagships & Accessories</h1>
                 <p>Explore the largest collection with WhatsApp express checkout.</p>
-                <a href="#smartphones" class="btn">View Catalog</a>
             </div>
         </div>
-        <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), url('https://unsplash.com');">
+        
+        <!-- Banner Page 2 -->
+        <div class="slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.60), rgba(15, 23, 42, 0.60)), url('https://unsplash.com');">
             <div class="hero-content">
                 <span class="promo-badge">Premium Audio</span>
                 <h1>Sound & Power Gear</h1>
                 <p>Wireless earbuds, audio kits, and chargers under one roof.</p>
-                <a href="#accessories" class="btn">Shop Accessories</a>
             </div>
         </div>
-        <button class="slider-arrow prev-arrow" onclick="moveSlide(-1)">❮</button>
-        <button class="slider-arrow next-arrow" onclick="moveSlide(1)">❯</button>
+        
+        <!-- Automated Slider Dots Indicators -->
         <div class="slider-dots">
             <span class="dot active" onclick="setSlide(0)"></span>
             <span class="dot" onclick="setSlide(1)"></span>
@@ -55,32 +57,68 @@
     <!-- Full-Width Background Section Containers -->
     <div class="section-wrapper bg-white">
         <section id="smartphones" class="products-section">
-            <!-- Bolded and Highlighted Section Heading -->
-            <h2 class="highlighted-heading">Latest Smartphones</h2>
-            <div id="smartphones-grid" class="product-grid"></div>
+            <h1 class="highlighted-heading">Latest Smartphones</h1>
+            
+            <div class="accessory-filter-wrapper">
+                <div class="main-cat-tabs" id="smartphone-cat-tabs">
+                    <button class="cat-tab active" onclick="switchSmartphoneCategory('iPhone')">iPhone</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Samsung')">Samsung</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Google Pixel')">Google Pixel</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Vivo')">Vivo</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Oppo')">Oppo</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Redmi')">Redmi</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Realme')">Realme</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Poco')">Poco</button>
+                    <button class="cat-tab" onclick="switchSmartphoneCategory('Nothing')">Nothing</button>
+                </div>
+            </div>
+            
+            <div id="smartphones-grid" class="product-grid animated-fade"></div>
         </section>
     </div>
 
     <div class="section-wrapper bg-alt">
         <section id="keypad-mobiles" class="products-section">
-            <!-- Bolded and Highlighted Section Heading -->
-            <h2 class="highlighted-heading">Keypad Mobiles</h2>
-            <div id="keypad-grid" class="product-grid"></div>
+            <h1 class="highlighted-heading">Keypad Mobiles</h1>
+            
+            <div class="accessory-filter-wrapper">
+                <div class="main-cat-tabs" id="keypad-cat-tabs">
+                    <button class="cat-tab active" onclick="switchKeypadCategory('Samsung')">Samsung</button>
+                    <button class="cat-tab" onclick="switchKeypadCategory('Nokia')">Nokia</button>
+                    <button class="cat-tab" onclick="switchKeypadCategory('Lava')">Lava</button>
+                    <button class="cat-tab" onclick="switchKeypadCategory('Karbonn')">Karbonn</button>
+                </div>
+            </div>
+            
+            <div id="keypad-grid" class="product-grid animated-fade"></div>
         </section>
     </div>
 
     <div class="section-wrapper bg-white">
         <section id="refurbished-mobiles" class="products-section">
-            <!-- Bolded and Highlighted Section Heading -->
-            <h2 class="highlighted-heading">Refurbished Mobiles</h2>
-            <div id="refurbished-grid" class="product-grid"></div>
+            <h1 class="highlighted-heading">Refurbished Mobiles</h1>
+            
+            <div class="accessory-filter-wrapper">
+                <div class="main-cat-tabs" id="refurbished-cat-tabs">
+                    <button class="cat-tab active" onclick="switchRefurbishedCategory('iPhone')">iPhone</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Samsung')">Samsung</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Google Pixel')">Google Pixel</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Vivo')">Vivo</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Oppo')">Oppo</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Redmi')">Redmi</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Realme')">Realme</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Poco')">Poco</button>
+                    <button class="cat-tab" onclick="switchRefurbishedCategory('Nothing')">Nothing</button>
+                </div>
+            </div>
+            
+            <div id="refurbished-grid" class="product-grid animated-fade"></div>
         </section>
     </div>
 
     <div class="section-wrapper bg-alt">
         <section id="accessories" class="products-section">
-            <!-- Bolded and Highlighted Section Heading -->
-            <h2 class="highlighted-heading">Premium Accessories</h2>
+            <h1 class="highlighted-heading">Premium Accessories</h1>
             
             <div class="accessory-filter-wrapper">
                 <div class="main-cat-tabs">
@@ -115,14 +153,35 @@
 
     <!-- Store Contact Info -->
     <section class="contact-section">
-        <h4>Visit Our Store</h4>
-        <div class="contact-info">
-		    <p><i><h2>Anand Mobiles</h2></i></p>
-            <p>📍 Near Old Busstand, Venkatagiri Town</p>
-            <p>📞 +91 90108 02092</p>
-            <p>⏰ Open Daily: 09:00 AM - 9:00 PM</p>
+    <div class="contact-grid-container">
+        <div class="contact-text-block">
+            <h4>Visit Our Store</h4>
+            <div class="contact-info">
+                <h2>Anand Mobiles</h2>
+                <p>📍 Near Old Busstand, Venkatagiri Town, Andhra Pradesh</p>
+                <p>📞 +91 90108 02092</p>
+                <p>⏰ Open Daily: 09:00 AM - 9:00 PM</p>
+            </div>
+            
+            <!-- Social Interactive Channels Centered -->
+            <div class="social-links-wrapper">
+                <!-- WhatsApp Redirect -->
+                <a href="https://wa.me/919010802092" target="_blank" aria-label="WhatsApp Store Channel" class="social-icon wa">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.478 2.019 14.008 1 11.458 1 6.02 1 1.596 5.372 1.592 10.8c-.001 1.702.461 3.366 1.339 4.831L1.93 21.17l5.854-1.534zm12.39-5.467c-.312-.156-1.85-.912-2.128-1.012-.277-.1-.479-.15-.68.156-.201.304-.778.979-.953 1.181-.177.201-.353.226-.665.07-1.3-.653-2.153-1.12-3.007-2.585-.22-.376.22-.35.629-1.164.068-.136.033-.256-.017-.356-.051-.1-.479-1.152-.656-1.58-.173-.414-.347-.359-.479-.365-.124-.006-.266-.007-.408-.007-.142 0-.373.053-.568.267-.194.214-.742.725-.742 1.768 0 1.042.759 2.048.865 2.19.106.142 1.492 2.278 3.615 3.193.504.218.898.348 1.206.445.508.162.97.139 1.336.084.408-.06 1.85-.757 2.112-1.454.262-.697.262-1.296.183-1.422-.079-.127-.277-.203-.59-.359z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com/anjali_anand_mobiles_services?igsh=MWhld214bWg1aHBtMw==" target="_blank" aria-label="Instagram Store Feed" class="social-icon ig">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://youtube.com" target="_blank" aria-label="YouTube Product Reviews Channel" class="social-icon yt">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <footer>
         <p>&copy; 2026 Anand Mobiles. All rights reserved.</p>
