@@ -1,541 +1,493 @@
-/* ==========================================
-   1. GLOBAL RESETS & MODERN VARIABLES
-   ========================================== */
-:root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    /* Premium High-Contrast Header Background Slate */
-    --header-bg: #0b1329; 
-    --dark-bg: #090d16;
-    --light-bg: #f8fafc; 
-    --alt-bg: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --price-strike: #94a3b8;
-    --price-sale: #dc2626;
-    --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -3px rgba(0, 0, 0, 0.02);
-    --glass-blur: 20px;
+// ==========================================
+// 1. DATABASE: FULL PRODUCT STOCK CATALOG
+// ==========================================
+const productsDatabase = {
+    smartphones: [
+        { id: "sp1", brand: "iPhone", name: "iPhone 15 Pro Max", price: 79999, category: "iPhone" },
+        { id: "sp2", brand: "iPhone", name: "iPhone 15 Pro", price: 74999, category: "iPhone" },
+        { id: "sp3", brand: "iPhone", name: "iPhone 15", price: 65999, category: "iPhone" },
+        { id: "sp4", brand: "iPhone", name: "iPhone 14", price: 56999, category: "iPhone" },
+        { id: "sp5", brand: "Samsung", name: "Galaxy S24 Ultra", price: 84999, category: "Samsung" },
+        { id: "sp6", brand: "Samsung", name: "Galaxy S24+", price: 74999, category: "Samsung" },
+        { id: "sp7", brand: "Samsung", name: "Galaxy S23 Ultra", price: 69999, category: "Samsung" },
+        { id: "sp8", brand: "Samsung", name: "Galaxy A55", price: 39999, category: "Samsung" },
+        { id: "sp9", brand: "Google Pixel", name: "Pixel 8 Pro", price: 69999, category: "Google Pixel" },
+        { id: "sp10", brand: "Google Pixel", name: "Pixel 8", price: 54999, category: "Google Pixel" },
+        { id: "sp11", brand: "Google Pixel", name: "Pixel 7a", price: 37999, category: "Google Pixel" },
+        { id: "sp12", brand: "Google Pixel", name: "Pixel 6a", price: 29999, category: "Google Pixel" },
+        { id: "sp13", brand: "Vivo", name: "Vivo X100 Pro", price: 79999, category: "Vivo" },
+        { id: "sp14", brand: "Vivo", name: "Vivo V30 Pro", price: 41999, category: "Vivo" },
+        { id: "sp15", brand: "Vivo", name: "Vivo Y200e", price: 20999, category: "Vivo" },
+        { id: "sp16", brand: "Vivo", name: "Vivo T2x", price: 12999, category: "Vivo" },
+        { id: "sp17", brand: "Oppo", name: "Oppo Reno 11 Pro", price: 37999, category: "Oppo" },
+        { id: "sp18", brand: "Oppo", name: "Oppo F25 Pro", price: 23999, category: "Oppo" },
+        { id: "sp19", brand: "Oppo", name: "Oppo A78", price: 18499, category: "Oppo" },
+        { id: "sp20", brand: "Oppo", name: "Oppo K11", price: 20999, category: "Oppo" },
+        { id: "sp21", brand: "Redmi", name: "Redmi Note 13 Pro+", price: 31999, category: "Redmi" },
+        { id: "sp22", brand: "Redmi", name: "Redmi 13C", price: 8999, category: "Redmi" },
+        { id: "sp23", brand: "Redmi", name: "Redmi 12 5G", price: 11999, category: "Redmi" },
+        { id: "sp24", brand: "Redmi", name: "Redmi A3", price: 7299, category: "Redmi" },
+        { id: "sp25", brand: "Realme", name: "Realme GT 5G", price: 37999, category: "Realme" },
+        { id: "sp26", brand: "Realme", name: "Realme 12 Pro+", price: 29999, category: "Realme" },
+        { id: "sp27", brand: "Realme", name: "Realme Narzo 70", price: 15999, category: "Realme" },
+        { id: "sp28", brand: "Realme", name: "Realme C65", price: 11999, category: "Realme" },
+        { id: "sp29", brand: "Poco", name: "Poco X6 Pro", price: 24999, category: "Poco" },
+        { id: "sp30", brand: "Poco", name: "Poco F5 5G", price: 29999, category: "Poco" },
+        { id: "sp31", brand: "Poco", name: "Poco M6 Pro", price: 10999, category: "Poco" },
+        { id: "sp32", brand: "Poco", name: "Poco C65", price: 8499, category: "Poco" },
+        { id: "sp33", brand: "Nothing", name: "Nothing Phone (2)", price: 36999, category: "Nothing" },
+        { id: "sp34", brand: "Nothing", name: "Nothing Phone (2a)", price: 23999, category: "Nothing" },
+        { id: "sp35", brand: "Nothing", name: "Nothing Phone (1)", price: 27999, category: "Nothing" }
+    ],
+    keypad: [
+        { id: "kp1", brand: "Samsung", name: "Guru Music 2", price: 2499, category: "Samsung" },
+        { id: "kp2", brand: "Samsung", name: "Metro XL", price: 3499, category: "Samsung" },
+        { id: "kp3", brand: "Samsung", name: "Guru Plus B110", price: 1749, category: "Samsung" },
+        { id: "kp4", brand: "Nokia", name: "Nokia 105 SS", price: 1299, category: "Nokia" },
+        { id: "kp5", brand: "Nokia", name: "Nokia 110 4G", price: 2499, category: "Nokia" },
+        { id: "kp6", brand: "Nokia", name: "Nokia 225 4G", price: 3599, category: "Nokia" },
+        { id: "kp7", brand: "Nokia", name: "Nokia 5310", price: 4049, category: "Nokia" },
+        { id: "kp8", brand: "Lava", name: "Lava A1 Flex", price: 1149, category: "Lava" },
+        { id: "kp9", brand: "Lava", name: "Lava Flip", price: 1799, category: "Lava" },
+        { id: "kp10", brand: "Lava", name: "Lava Gem Premium", price: 1599, category: "Lava" },
+        { id: "kp11", brand: "Lava", name: "Lava Pulse", price: 1899, category: "Lava" },
+        { id: "kp12", brand: "Karbonn", name: "Karbonn K9 Jumbo", price: 1449, category: "Karbonn" },
+        { id: "kp13", brand: "Karbonn", name: "Karbonn KX3", price: 1099, category: "Karbonn" },
+        { id: "kp14", brand: "Karbonn", name: "Karbonn K77", price: 1349, category: "Karbonn" },
+        { id: "kp15", brand: "Karbonn", name: "Karbonn K14", price: 1199, category: "Karbonn" }
+    ],
+    refurbished: [
+        { id: "rf1", brand: "iPhone", name: "iPhone 13 Pro (Refurbished)", price: 48999, category: "iPhone" },
+        { id: "rf2", brand: "iPhone", name: "iPhone 12 Mini (Refurbished)", price: 24999, category: "iPhone" },
+        { id: "rf3", brand: "iPhone", name: "iPhone 11 Pro (Refurbished)", price: 27999, category: "iPhone" },
+        { id: "rf4", brand: "iPhone", name: "iPhone SE 2020 (Refurbished)", price: 12999, category: "iPhone" },
+        { id: "rf5", brand: "Samsung", name: "Galaxy S22 Ultra (Refurbished)", price: 39999, category: "Samsung" },
+        { id: "rf6", brand: "Samsung", name: "Galaxy S21 FE (Refurbished)", price: 18999, category: "Samsung" },
+        { id: "rf7", brand: "Samsung", name: "Galaxy Note 20 Ultra (Refurbished)", price: 29999, category: "Samsung" },
+        { id: "rf8", brand: "Samsung", name: "Galaxy A73 (Refurbished)", price: 21999, category: "Samsung" },
+        { id: "rf9", brand: "Google Pixel", name: "Pixel 7 Pro (Refurbished)", price: 34999, category: "Google Pixel" },
+        { id: "rf10", brand: "Google Pixel", name: "Pixel 6 Pro (Refurbished)", price: 24999, category: "Google Pixel" },
+        { id: "rf11", brand: "Google Pixel", name: "Pixel 6a (Refurbished)", price: 17999, category: "Google Pixel" },
+        { id: "rf12", brand: "Google Pixel", name: "Pixel 5 (Refurbished)", price: 12999, category: "Google Pixel" },
+        { id: "rf13", brand: "Vivo", name: "Vivo V27 Pro (Refurbished)", price: 22999, category: "Vivo" },
+        { id: "rf14", brand: "Vivo", name: "Vivo X90 (Refurbished)", price: 31999, category: "Vivo" },
+        { id: "rf15", brand: "Vivo", name: "Vivo V25 (Refurbished)", price: 14999, category: "Vivo" },
+        { id: "rf16", brand: "Vivo", name: "Vivo Y100 (Refurbished)", price: 12999, category: "Vivo" },
+        { id: "rf17", brand: "Oppo", name: "Oppo Reno 10 Pro (Refurbished)", price: 23999, category: "Oppo" },
+        { id: "rf18", brand: "Oppo", name: "Oppo F21 Pro (Refurbished)", price: 14999, category: "Oppo" },
+        { id: "rf19", brand: "Oppo", name: "Oppo A96 (Refurbished)", price: 11999, category: "Oppo" },
+        { id: "rf20", brand: "Oppo", name: "Oppo K10 (Refurbished)", price: 10499, category: "Oppo" },
+        { id: "rf21", brand: "Redmi", name: "Redmi Note 12 Pro (Refurbished)", price: 15499, category: "Redmi" },
+        { id: "rf22", brand: "Redmi", name: "Redmi K50i (Refurbished)", price: 14999, category: "Redmi" },
+        { id: "rf23", brand: "Redmi", name: "Redmi 11 Prime (Refurbished)", price: 8499, category: "Redmi" },
+        { id: "rf24", brand: "Redmi", name: "Redmi Note 11 (Refurbished)", price: 9499, category: "Redmi" },
+        { id: "rf25", brand: "Realme", name: "Realme 11 Pro+ (Refurbished)", price: 18999, category: "Realme" },
+        { id: "rf26", brand: "Realme", name: "Realme 10 Pro (Refurbished)", price: 13999, category: "Realme" },
+        { id: "rf27", brand: "Realme", name: "Realme GT Master (Refurbished)", price: 15999, category: "Realme" },
+        { id: "rf28", brand: "Realme", name: "Realme 9i (Refurbished)", price: 9499, category: "Realme" },
+        { id: "rf29", brand: "Poco", name: "Poco F4 5G (Refurbished)", price: 14999, category: "Poco" },
+        { id: "rf30", brand: "Poco", name: "Poco X5 Pro (Refurbished)", price: 15999, category: "Poco" },
+        { id: "rf31", brand: "Poco", name: "Poco M4 Pro (Refurbished)", price: 10499, category: "Poco" },
+        { id: "rf32", brand: "Poco", name: "Poco C55 (Refurbished)", price: 6499, category: "Poco" },
+        { id: "rf33", brand: "Nothing", name: "Nothing Phone (1) Black (Refurbished)", price: 18999, category: "Nothing" },
+        { id: "rf34", brand: "Nothing", name: "Nothing Phone (1) White (Refurbished)", price: 19499, category: "Nothing" }
+    ],
+    accessories: [
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-we-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wired Earphones", name:`Wired Earphone ${v}`, price:399 + (idx * 50), img:"🎧" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-wle-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wireless Earphones", name:`Wireless Earphone ${v}`, price:999 + (idx * 100), img:"🎧" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-web-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Wireless Earbuds", name:`Wireless Earbuds ${v}`, price:1999 + (idx * 200), img:"🎧" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-spk-${idx}`, cat:"accessories", mainCat:"Audio Devices", subCat:"Speakers", name:`Bluetooth Speaker ${v}`, price:1499 + (idx * 300), img:"🔊" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-tc-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Type-c", name:`Type-C Charger ${v}`, price:599 + (idx * 100), img:"🔌" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-mu-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Micro usb", name:`Micro USB Charger ${v}`, price:299 + (idx * 50), img:"🔌" })),
+        ...["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`acc-lt-${idx}`, cat:"accessories", mainCat:"Chargers", subCat:"Lightening", name:`Lightning Charger ${v}`, price:899 + (idx * 200), img:"🔌" })),
+        ...["Iphone", "Google Pixel", "Vivo", "Oppo", "Redmi", "Realme", "Poco", "Nothing", "Samsung"].flatMap(b => 
+            ["Item-1", "Item-2", "Item-3", "Item-4"].map((v, idx) => ({ id:`case-${b.replace(/\s+/g, '')}-${idx}`, cat:"accessories", mainCat:"Mobile cases", subCat:b, name:`${b} Case ${v}`, price:299 + (idx * 50), img:"🛡️" }))
+        ),
+        { id:"acc-oth-1", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Cable protector", price:99, img:"⚙️" },
+        { id:"acc-oth-2", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Finger pad", price:149, img:"🎮" },
+        { id:"acc-oth-3", cat:"accessories", mainCat:"Others", subCat:"Others", name:"Mobile cleaning kit", price:249, img:"🧽" }
+    ]
+};
+
+// Application State Parameters
+let cart = [];
+let currentSmartphoneBrand = "iPhone";
+let currentKeypadBrand = "Samsung";
+let currentRefurbishedBrand = "iPhone";
+let currentAccessoryMainCat = "Audio Devices";
+let currentAccessorySubCat = "Wired Earphones";
+
+let currentSlideIndex = 0;
+
+// Initialize on Document Loading Hooks
+window.addEventListener("DOMContentLoaded", () => {
+    renderAllGrids();
+    initSlider();
+    setupSubCategoryTabs();
+});
+
+// ==========================================
+// 2. RENDERING LOGIC WITH DUAL PRICING MAPS
+// ==========================================
+function renderAllGrids() {
+    renderGrid("smartphones-grid", productsDatabase.smartphones, currentSmartphoneBrand, "📱");
+    renderGrid("keypad-grid", productsDatabase.keypad, currentKeypadBrand, "📟");
+    renderGrid("refurbished-grid", productsDatabase.refurbished, currentRefurbishedBrand, "📱");
+    renderAccessoryGrid();
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    -webkit-tap-highlight-color: transparent;
+function renderGrid(containerId, productArray, filterBrand, emoji) {
+    const grid = document.getElementById(containerId);
+    if (!grid) return;
+    
+    // Normalize target parameter string keys
+    const filtered = productArray.filter(p => p.category.toLowerCase() === filterBrand.toLowerCase());
+    
+    grid.innerHTML = filtered.map(product => {
+        // Compute psychological retail cross-out baseline cost structure (+25%)
+        const originalPrice = Math.round(product.price * 1.25);
+        return `
+            <div class="product-card">
+                <div class="product-icon-frame">${emoji}</div>
+                <div class="product-brand">${product.brand.toUpperCase()}</div>
+                <h3 class="product-title">${product.name}</h3>
+                <div class="product-price-wrapper">
+                    <span class="price-original">₹${originalPrice.toLocaleString('en-IN')}</span>
+                    <span class="price-discounted">₹${product.price.toLocaleString('en-IN')}</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('${product.id}', '${escapeHtml(product.name)}', ${product.price})">Add to Cart</button>
+            </div>
+        `;
+    }).join('');
 }
 
-html {
-    scroll-behavior: smooth;
+function renderAccessoryGrid() {
+    const grid = document.getElementById("accessories-grid");
+    if (!grid) return;
+
+    // Multi-dimensional sub-object extraction check handles
+    const filtered = productsDatabase.accessories.filter(p => 
+        p.mainCat === currentAccessoryMainCat && 
+        (currentAccessorySubCat === "" || p.subCat.toLowerCase() === currentAccessorySubCat.toLowerCase())
+    );
+
+    grid.innerHTML = filtered.map(acc => {
+        const originalPrice = Math.round(acc.price * 1.30);
+        return `
+            <div class="product-card">
+                <div class="product-icon-frame">${acc.img || '🎧'}</div>
+                <div class="product-brand">${acc.subCat.toUpperCase()}</div>
+                <h3 class="product-title">${acc.name}</h3>
+                <div class="product-price-wrapper">
+                    <span class="price-original">₹${originalPrice.toLocaleString('en-IN')}</span>
+                    <span class="price-discounted">₹${acc.price.toLocaleString('en-IN')}</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('${acc.id}', '${escapeHtml(acc.name)}', ${acc.price})">Add to Cart</button>
+            </div>
+        `;
+    }).join('');
 }
 
-body {
-    background-color: var(--light-bg);
-    color: var(--text-main);
-    overflow-x: hidden;
+// ==========================================
+// 3. BRAND CATEGORY TAB TOGGLE CONTROLS
+// ==========================================
+function switchSmartphoneCategory(brand) {
+    currentSmartphoneBrand = brand;
+    toggleActiveTab("smartphone-cat-tabs", brand);
+    renderGrid("smartphones-grid", productsDatabase.smartphones, brand, "📱");
 }
 
-/* ==========================================
-   2. HEADER & FIXED NAVIGATION (DARK PREMIUM)
-   ========================================== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: var(--header-bg); 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 14px 16px;
-    gap: 12px;
+function switchKeypadCategory(brand) {
+    currentKeypadBrand = brand;
+    toggleActiveTab("keypad-cat-tabs", brand);
+    renderGrid("keypad-grid", productsDatabase.keypad, brand, "📟");
 }
 
-@media(min-width: 768px) {
-    .navbar {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 16px 40px;
-        gap: 24px;
+function switchRefurbishedCategory(brand) {
+    currentRefurbishedBrand = brand;
+    toggleActiveTab("refurbished-cat-tabs", brand);
+    renderGrid("refurbished-grid", productsDatabase.refurbished, brand, "📱");
+}
+
+function switchAccessoryCategory(mainCat) {
+    currentAccessoryMainCat = mainCat;
+    
+    const match = productsDatabase.accessories.find(a => a.mainCat === mainCat);
+    currentAccessorySubCat = match ? match.subCat : "";
+    
+    const tabs = document.querySelectorAll("#accessories .main-cat-tabs .cat-tab");
+    tabs.forEach(btn => {
+        if(btn.textContent.trim().toLowerCase() === mainCat.toLowerCase()) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+
+    setupSubCategoryTabs();
+    renderAccessoryGrid();
+}
+
+function switchAccessorySubCategory(subCat) {
+    currentAccessorySubCat = subCat;
+    const subTabs = document.querySelectorAll("#sub-cat-tabs .sub-tab");
+    subTabs.forEach(btn => {
+        if(btn.textContent.trim().toLowerCase() === subCat.toLowerCase()) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+    renderAccessoryGrid();
+}
+
+function setupSubCategoryTabs() {
+    const container = document.getElementById("sub-cat-tabs");
+    if (!container) return;
+
+    const items = productsDatabase.accessories.filter(a => a.mainCat === currentAccessoryMainCat);
+    const uniqueSubs = [...new Set(items.map(a => a.subCat))];
+
+    if (uniqueSubs.length <= 1) {
+        container.innerHTML = "";
+        return;
+    }
+
+    container.innerHTML = uniqueSubs.map(sub => `
+        <button class="sub-tab ${sub.toLowerCase() === currentAccessorySubCat.toLowerCase() ? 'active' : ''}" onclick="switchAccessorySubCategory('${escapeHtml(sub)}')">${sub}</button>
+    `).join('');
+}
+
+function toggleActiveTab(parentContainerId, targetBrandName) {
+    const buttons = document.querySelectorAll(`#${parentContainerId} .cat-tab`);
+    buttons.forEach(btn => {
+        if (btn.textContent.trim().toLowerCase() === targetBrandName.toLowerCase()) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+}
+
+// ==========================================
+// 4. LIVE GLOBAL SEARH PARSING PIPELINES
+// ==========================================
+function handleGlobalSearch() {
+    const query = document.getElementById("product-search").value.toLowerCase().trim();
+    if (query === "") {
+        renderAllGrids();
+        return;
+    }
+
+    filterSearchGrid("smartphones-grid", productsDatabase.smartphones, query, "📱");
+    filterSearchGrid("keypad-grid", productsDatabase.keypad, query, "📟");
+    filterSearchGrid("refurbished-grid", productsDatabase.refurbished, query, "📱");
+
+    const accGrid = document.getElementById("accessories-grid");
+    if (accGrid) {
+        const filteredAcc = productsDatabase.accessories.filter(p => 
+            p.name.toLowerCase().includes(query) || p.subCat.toLowerCase().includes(query)
+        );
+        accGrid.innerHTML = filteredAcc.map(acc => {
+            const originalPrice = Math.round(acc.price * 1.30);
+            return `
+                <div class="product-card">
+                    <div class="product-icon-frame">${acc.img || '🎧'}</div>
+                    <div class="product-brand">${acc.subCat.toUpperCase()}</div>
+                    <h3 class="product-title">${acc.name}</h3>
+                    <div class="product-price-wrapper">
+                        <span class="price-original">₹${originalPrice.toLocaleString('en-IN')}</span>
+                        <span class="price-discounted">₹${acc.price.toLocaleString('en-IN')}</span>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('${acc.id}', '${escapeHtml(acc.name)}', ${acc.price})">Add to Cart</button>
+                </div>
+            `;
+        }).join('');
     }
 }
 
-/* Explicit rule overriding global link styles for your main logo */
-.logo, a.logo, .navbar a.logo {
-    text-decoration: none !important;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: -1px;
-    display: inline-block;
-    cursor: pointer;
+function filterSearchGrid(containerId, productArray, query, emoji) {
+    const grid = document.getElementById(containerId);
+    if (!grid) return;
+
+    const filtered = productArray.filter(p => 
+        p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query)
+    );
+
+    grid.innerHTML = filtered.map(product => {
+        const originalPrice = Math.round(product.price * 1.25);
+        return `
+            <div class="product-card">
+                <div class="product-icon-frame">${emoji}</div>
+                <div class="product-brand">${product.brand.toUpperCase()}</div>
+                <h3 class="product-title">${product.name}</h3>
+                <div class="product-price-wrapper">
+                    <span class="price-original">₹${originalPrice.toLocaleString('en-IN')}</span>
+                    <span class="price-discounted">₹${product.price.toLocaleString('en-IN')}</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('${product.id}', '${escapeHtml(product.name)}', ${product.price})">Add to Cart</button>
+            </div>
+        `;
+    }).join('');
 }
 
-.logo span {
-    color: var(--primary);
+// ==========================================
+// 5. SHOPPING CART CORE STORAGE ARRAYS
+// ==========================================
+function toggleCart() {
+    const drawer = document.getElementById("cart-drawer");
+    if (drawer) drawer.classList.toggle("open");
 }
 
-.search-container {
-    width: 100%;
-    max-width: 450px;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 12px 20px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 30px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: all 0.2s ease;
-    background: rgba(255, 255, 255, 0.07);
-    color: #ffffff;
-}
-
-.search-container input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.search-container input:focus {
-    border-color: var(--primary);
-    background: #ffffff;
-    color: var(--text-main);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3);
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    justify-content: center;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 4px;
-}
-
-nav::-webkit-scrollbar { display: none; }
-
-@media(min-width: 768px) {
-    nav {
-        width: auto;
-        gap: 24px;
-        padding-bottom: 0;
+function addToCart(id, name, price) {
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, quantity: 1 });
+    }
+    updateCartUI();
+    
+    const drawer = document.getElementById("cart-drawer");
+    if (drawer && !drawer.classList.contains("open")) {
+        drawer.classList.add("open");
     }
 }
 
-nav a {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-
-nav a:hover {
-    color: #ffffff;
-}
-
-.cart-toggle-btn {
-    background: var(--primary);
-    color: #ffffff;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.cart-toggle-btn:hover {
-    background: var(--primary-hover);
-}
-
-/* ==========================================
-   3. AUTOMATED HERO SLIDER POSTERS
-   ========================================== */
-.hero-slider-container {
-    position: relative;
-    width: 100%;
-    height: 240px;      /* Decreased from 340px for a sleeker profile */
-    margin-top: 135px;  /* Reduced top offset to eliminate awkward blank space */
-    overflow: hidden;
-}
-
-@media(min-width: 768px) {
-    .hero-slider-container {
-        height: 340px;  /* Decreased from 460px for a crisp, wide banner look */
-        margin-top: 76px;/* Tightened desktop top gap clearance spacing */
+function changeQuantity(id, change) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    
+    item.quantity += change;
+    if (item.quantity <= 0) {
+        cart = cart.filter(i => i.id !== id);
     }
+    updateCartUI();
 }
 
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;       /* Hard stretches the photo perfectly to frame edges */
-    background-position: center;   /* Keeps the focus of the photo in the absolute middle */
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+function updateCartUI() {
+    const totalCountElement = document.getElementById("cart-count");
+    const totalAmountElement = document.getElementById("cart-total-amount");
+    const itemsContainer = document.getElementById("cart-items");
+    
+    let totalCount = 0;
+    let totalAmount = 0;
+    
+    if (itemsContainer) itemsContainer.innerHTML = "";
+
+    cart.forEach(item => {
+        totalCount += item.quantity;
+        totalAmount += (item.price * item.quantity);
+        
+        if (itemsContainer) {
+            const row = document.createElement("div");
+            row.className = "cart-item-row";
+            row.innerHTML = `
+                <div class="cart-item-info">
+                    <span class="cart-item-title">${item.name}</span>
+                    <span class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</span>
+                </div>
+                <div class="cart-qty-controls">
+                    <button onclick="changeQuantity('${item.id}', -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="changeQuantity('${item.id}', 1)">+</button>
+                </div>
+            `;
+            itemsContainer.appendChild(row);
+        }
+    });
+
+    if (totalCountElement) totalCountElement.textContent = totalCount;
+    if (totalAmountElement) totalAmountElement.textContent = `₹${totalAmount.toLocaleString('en-IN')}`;
 }
 
-.slide.active { opacity: 1; z-index: 1; }
-.hero-content { text-align: center; color: #ffffff; max-width: 650px; padding: 20px; }
-
-.promo-badge {
-    background: var(--primary);
-    color: white;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    display: inline-block;
-}
-
-.hero-content h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-@media(min-width: 768px) { .hero-content h1 { font-size: 3.5rem; } }
-
-.slider-arrow, .btn { display: none !important; }
-
-.slider-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    gap: 8px;
-}
-
-.dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.dot.active {
-    background: #ffffff;
-    width: 20px;
-    border-radius: 3px;
-}
-
-/* ==========================================
-   4. LAYOUT SECTIONS & NEW CATEGORIES STYLE
-   ========================================== */
-.section-wrapper { padding: 50px 16px; }
-.bg-white { background-color: var(--light-bg); }
-.bg-alt { background-color: var(--alt-bg); }
-
-.products-section {
-    max-width: 1280px;
-    margin: 0 auto;
-}
-
-.highlighted-heading {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--dark-bg);
-    margin-bottom: 28px;
-    text-align: center;
-    letter-spacing: -0.5px;
-}
-
-.accessory-filter-wrapper {
-    margin-bottom: 35px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main-cat-tabs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 8px 6px;
-    width: 100%;
-    scrollbar-width: none;
-}
-.main-cat-tabs::-webkit-scrollbar { display: none; }
-
-@media(min-width: 1024px) { .main-cat-tabs { justify-content: center; } }
-
-.cat-tab {
-    background: #ffffff;
-    color: var(--text-main);
-    border: 2px solid #e2e8f0;
-    padding: 12px 24px; 
-    border-radius: 40px;
-    font-size: 1.05rem; 
-    font-weight: 750;
-    cursor: pointer;
-    white-space: nowrap;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.cat-tab:hover {
-    border-color: var(--primary);
-    background: #fafafa;
-}
-
-.cat-tab.active {
-    background: var(--primary);
-    color: #ffffff;
-    border-color: var(--primary);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
-    transform: translateY(-1px);
-}
-
-.sub-cat-tabs {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-top: 18px;
-    padding: 2px;
-    scrollbar-width: none;
-    justify-content: center;
-    width: 100%;
-}
-
-.sub-tab {
-    background: #e2e8f0;
-    color: #475569;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.sub-tab.active {
-    background: var(--dark-bg);
-    color: #ffffff;
-}
-
-/* ==========================================
-   5. PRODUCT GRID & NEW DUAL PRICING LAYOUT
-   ========================================== */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-}
-
-@media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
-
-.product-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #e2e8f0;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.2s;
-}
-
-.product-card:hover { transform: translateY(-4px); }
-
-.product-icon-frame {
-    font-size: 2.4rem;
-    height: 70px;
-    width: 70px;
-    background: #f1f5f9;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-}
-
-.product-brand { font-size: 0.65rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-.product-title { font-size: 0.95rem; font-weight: 600; height: 2.8em; overflow: hidden; margin-bottom: 10px; text-align: center; }
-
-.product-price-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: auto;
-    margin-bottom: 16px;
-    width: 100%;
-}
-
-.price-original {
-    font-size: 0.85rem;
-    color: var(--price-strike);
-    text-decoration: line-through;
-    font-weight: 500;
-}
-
-.price-discounted {
-    font-size: 1.15rem;
-    color: var(--price-sale);
-    font-weight: 800;
-}
-
-.add-to-cart-btn {
-    width: auto;
-    min-width: 130px;
-    background: #f1f5f9;
-    color: var(--text-main);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    display: inline-flex;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.add-to-cart-btn:hover { background: var(--dark-bg); color: #ffffff; }
-
-/* ==========================================
-   6. CARTS DRAWER LAYOUT
-   ========================================== */
-.cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s ease; display: flex; flex-direction: column; }
-.cart-drawer.open { right: 0; }
-.cart-header { padding: 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-.cart-items-container { flex: 1; overflow-y: auto; padding: 20px; }
-.cart-item-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; }
-.cart-qty-controls { display: flex; align-items: center; background: #f1f5f9; border-radius: 8px; padding: 2px; }
-.cart-qty-controls button { background: none; border: none; width: 28px; height: 28px; cursor: pointer; font-weight: 600; }
-.cart-qty-controls span { font-size: 0.85rem; font-weight: 600; min-width: 24px; text-align: center; }
-.cart-footer { padding: 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; }
-.cart-total-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; }
-.whatsapp-checkout-btn { width: 100%; background: #25d366; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; text-align: center; }
-
-/* ==========================================
-   7. OPTIMISED VISIT OUR STORE SIZES
-   ========================================== */
-
-.contact-section {
-    background: var(--header-bg);
-    color: #ffffff;
-    padding: 40px 16px; 
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    text-align: center;
-}
-
-@media(min-width: 768px) {
-    .contact-section {
-        padding: 55px 40px;
+// ==========================================
+// 6. EXPRESS WHATSAPP CHECKOUT ORDER STRING
+// ==========================================
+function checkoutWhatsApp() {
+    if (cart.length === 0) {
+        alert("Your shopping cart is currently empty.");
+        return;
     }
+
+    const storePhoneNumber = "919010802092"; 
+    let totalAmount = 0;
+    
+    let message = `*ANAND MOBILES - NEW ONLINE ORDER*\n`;
+    message += `------------------------------------\n`;
+    
+    cart.forEach((item, index) => {
+        const itemSubtotal = item.price * item.quantity;
+        totalAmount += itemSubtotal;
+        message += `${index + 1}. *${item.name}*\n`;
+        message += `   Qty: ${item.quantity} × ₹${item.price.toLocaleString('en-IN')}\n`;
+        message += `   Subtotal: ₹${itemSubtotal.toLocaleString('en-IN')}\n\n`;
+    });
+    
+    message += `------------------------------------\n`;
+    message += `*Grand Total: ₹${totalAmount.toLocaleString('en-IN')}*\n\n`;
+    message += `Please confirm availability for package pickup/delivery.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/919010802092?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
 }
 
-.contact-grid-container {
-    max-width: 800px; /* Constrained width looks best for centered standalone text */
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+// ==========================================
+// 7. BANNER AUTO-ROTATION CAROUSEL CORE
+// ==========================================
+let slides = [];
+let dots = [];
+
+function initSlider() {
+    slides = document.querySelectorAll(".hero-slider-container .slide");
+    dots = document.querySelectorAll(".slider-dots .dot");
+    if(slides.length === 0) return;
+    
+    setInterval(() => {
+        moveSlide(1);
+    }, 6000);
 }
 
-.contact-text-block {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    justify-content: center;
-    text-align: center;     
+function moveSlide(direction) {
+    if(slides.length === 0) return;
+    currentSlideIndex += direction;
+    
+    if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+    if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+    
+    updateSliderUI();
 }
 
-.contact-text-block h4 {
-    font-size: 0.9rem; 
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
+function setSlide(index) {
+    currentSlideIndex = index;
+    updateSliderUI();
 }
 
-.contact-info h2 {
-    font-size: 1.7rem; 
-    color: #ffffff;
-    margin-bottom: 16px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+function updateSliderUI() {
+    slides.forEach((slide, i) => {
+        if (i === currentSlideIndex) {
+            slide.classList.add("active");
+        } else {
+            slide.classList.remove("active");
+        }
+    });
+
+    dots.forEach((dot, i) => {
+        if (i === currentSlideIndex) {
+            dot.classList.add("active");
+        } else {
+            dot.classList.remove("active");
+        }
+    });
 }
 
-.contact-info p {
-    opacity: 0.8;
-    margin-bottom: 10px;
-    font-size: 0.92rem; 
-    line-height: 1.5;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    gap: 8px;
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
-
-.social-links-wrapper {
-    display: flex;
-    gap: 14px;
-    margin-top: 20px;
-    justify-content: center; 
-    width: 100%;
-}
-
-.social-icon {
-    width: 40px; 
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
-}
-
-.social-icon svg {
-    width: 18px;
-    height: 18px;
-    fill: #ffffff;
-}
-
-.social-icon.wa:hover { background: #25d366; }
-.social-icon.ig:hover { background: #e1306c; }
-.social-icon.yt:hover { background: #ff0000; }
-
-.contact-map-frame {
-    flex: 1;
-    width: 100%;
-    height: 200px; 
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-@media(min-width: 768px) {
-    .contact-map-frame {
-        height: 280px; 
-    }
-}
-
-footer { background: #060a13; color: rgba(255,255,255,0.3); text-align: center; padding: 24px; font-size: 0.8rem; }
-
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.animated-fade { animation: fadeInUp 0.3s ease; }
